@@ -4,12 +4,44 @@
         <title>WEBshim form validation</title>
         <link rel="stylesheet" href="http://afarkas.github.com/webshim/js-webshim/minified/shims/styles/shim.css">
         <script type="text/javascript" src="jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="html5shiv.js"></script>
         <script type="text/javascript" src="http://afarkas.github.com/webshim/js-webshim/minified/polyfiller.js"></script>
         <script type="text/javascript">
             //<![CDATA[
             webshim.setOptions('forms', {
             //show custom styleable validation bubble
-                replaceValidationUI: true
+                replaceValidationUI: true,
+                lazyCustomMessages: true,
+                addValidators: true,
+                iVal: {
+                    //a simple selector of your form element[s]
+                    "sel": ".ws-validate",
+                    //wether webshim should show a bubble on invalid event: "hide" | true | false
+                    "handleBubble": "hide",
+
+                    //selector or function to find the wrapper of the form field[s] (if there are more than one form field in the wrapper they will be handled as a group with one combined errormessage)
+                    "fieldWrapper": ":not(span):not(label):not(em):not(strong):not(p)",
+
+                    //wether an invalid input should be re-checked while user types
+                    "recheckDelay": 400,
+
+                    //in case a developer has set novalidate attribute to a form element and wants the form validated on submit, this should be set to true
+                    "submitCheck": false,
+
+                    //Events to check for validity/update validation UI
+                    "events": "focusout change", //Note: The 'invalid' and 'updatevalidation' events will be always used
+
+                    //the class of the errorbox, which is normally appended to the fieldWrapper
+                    "errorBoxClass": "ws-errorbox",
+
+                    //classes to adjust to your CSS/CSS-framework
+                    "errorMessageClass": "ws-errormessage",
+                    "errorWrapperClass": "ws-invalid",
+                    "successWrapperClass": "ws-success",
+
+                    //show/hide effect: 'no' | 'slide' | 'fade'
+                    "fx": "slide"
+                }
             });
 
             //start polyfilling
@@ -56,6 +88,14 @@
             <div class="form-row">
                 <label for="email">email</label>
                 <input data-errormessage='{"valueMissing": "Please enter your email adress.", "typeMismatch": "Your email is not correct."}' required="" type="email" id="email" />
+            </div>
+            <div class="form-row">
+                <input type="password" placeholder="password" id="password" required="" /> <br />
+                <input data-dependent-validation="password" type="password"  placeholder="repeat password" />
+            </div>
+            <div class="form-row">
+                <label for="email">Luhn</label>
+                <input data-luhn="" required="" type="text" id="email" />
             </div>
             <div class="form-row">
                 <input type="submit" />
