@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>WEBshim form validation</title>
+        <link rel="stylesheet" href="http://afarkas.github.com/webshim/js-webshim/minified/shims/styles/shim.css">
+        <script type="text/javascript" src="jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="http://afarkas.github.com/webshim/js-webshim/minified/polyfiller.js"></script>
+        <script type="text/javascript">
+            //<![CDATA[
+            webshim.setOptions('forms', {
+            //show custom styleable validation bubble
+                replaceValidationUI: true
+            });
+
+            //start polyfilling
+            webshim.polyfill('forms');
+            //]]>
+        </script>
+        <style type="text/css">
+            form {
+                margin: 10px auto;
+                max-width: 400px;
+                min-width: 220px;
+            }
+            .form-row {
+             padding: 5px 10px;
+            }
+            label {
+                display: block;
+                margin: 3px 0;
+            }
+            .form-row input {
+                width: 220px;
+                padding: 3px 1px;
+            }
+            input:focus {
+                outline: none;
+            }
+            .ws-po-box {
+                color:red;
+            }
+            .user-success {
+                border:solid 1px green;
+            }
+            .user-error {
+                border:solid 1px red;
+            }
+        </style>
+    </head>
+    <body>
+        <form action="#">
+            <div class="form-row">
+                <label for="name">Name</label>
+                <input data-errormessage="Please enter your Name." required="" type="text" id="name" />
+            </div>
+            <div class="form-row">
+                <label for="email">email</label>
+                <input data-errormessage='{"valueMissing": "Please enter your email adress.", "typeMismatch": "Your email is not correct."}' required="" type="email" id="email" />
+            </div>
+            <div class="form-row">
+                <input type="submit" />
+            </div>
+        </form>
+    </body>
+</html>
